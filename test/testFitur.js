@@ -3,7 +3,7 @@
 const chai = require('chai')
 const should = chai.should()
 const chaiHttp = require('chai-http')
-const fitur = require('../routes/index')
+const fitur = require('../server/routes/index')
 
 chai.use(chaiHttp)
 
@@ -14,13 +14,15 @@ describe('Can request endpoint', () => {
       .send({
         title: 'Mocha testing',
         content: 'One a request is created with a given VERB, it can have headers!',
-        category: 'world'
+        category: 'Technology',
+        slug: 'mocha-testing'
       })
       .end((err, res) => {
         res.should.have.status(200)
         res.body.title.should.equal('Mocha testing')
         res.body.content.should.equal('One a request is created with a given VERB, it can have headers!')
-        res.body.title.should.equal('world')
+        res.body.category.should.equal('Technology')
+        res.body.slug.should.equal('mocha-testing')
         done(err)
       })
   })
@@ -37,20 +39,21 @@ describe('Can request endpoint', () => {
 
   it('GET ONE ARTICLE', (done) => {
     chai.request('http://localhost:3000/api')
-      .get('/article/:slug')
+      .get('/article/mocha-testing')
       .end((err, res) => {
         res.should.have.status(200)
         res.should.be.json
         res.body.title.should.equal('Mocha testing')
-        res.body.content.should.equal('One a request is created with a given VERB, it can have headers!'),
-          res.body.category.should.equal('Technology')
+        res.body.content.should.equal('One a request is created with a given VERB, it can have headers!')
+        res.body.category.should.equal('Technology')
+        res.body.slug.should.equal('mocha-testing')
         done(err)
       })
   })
 
   it('PUT ARTICLE', (done) => {
     chai.request('http://localhost:3000/api')
-      .put('/article/:slug')
+      .put('/article/mocha-testing')
       .send({
         title: 'Mocha testing',
         content: 'One a request is created with a given VERB, it can have headers!',
@@ -62,20 +65,22 @@ describe('Can request endpoint', () => {
         res.body.title.should.equal('Mocha testing')
         res.body.content.should.equal('One a request is created with a given VERB, it can have headers!')
         res.body.category.should.equal('Technology')
+        res.body.slug.should.equal('mocha-testing')
         done(err)
       })
   })
 
   it('DELETE ARTICLE', (done) => {
     chai.request('http://localhost:3000/api')
-      .delete('/article/:slug')
+      .delete('/article/mocha-testing')
       .end((err, res) => {
-        res.should.have.status(200)
-        res.should.be.json
-        res.body.title.should.equal('Mocha testing')
-        res.body.content.should.equal('One a request is created with a given VERB, it can have headers!')
-        res.body.category.should.equal('Technology')
-        done(err)
+        if (err) {
+          done(err)
+        } else {
+          res.should.be.html
+          res.should.have.status(200)
+          done()
+        }
       })
   })
 })

@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-require('../db')
+// require('../db')
 
 let articleSchema = new Schema({
   title: String,

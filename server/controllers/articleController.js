@@ -61,8 +61,8 @@ let deleteArticle = (req, res) => {
     if (!data) {
       res.send('article is not found!')
     } else {
-      data.remove(req.params.slug).then((result) => {
-        res.send(`article ${result} has been deleted`)
+      data.remove(req.params.title).then((result) => {
+        res.send('article has been deleted!')
       }).catch((e) => {
         if (e) throw e
       })
