@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 
 const app = express()
 
-let index = require('../routes/index')
+let index = require('./routes/index')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
