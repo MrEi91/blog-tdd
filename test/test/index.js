@@ -1,0 +1,6 @@
+require('../api/api-article')
+require('../frontend/insert-article')
+// require('../frontend/get-one-article')
+// require('../frontend/get-articles')
+// require('../frontend/update-article')
+// require('../frontend/delete-article')
